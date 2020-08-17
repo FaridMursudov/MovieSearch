@@ -1,0 +1,11 @@
+<div class="card">
+    <img src="{{movie.Poster}}" class="card-img-top" (error)="onImageLoadError()" style="width: 100%; height: 280px; object-fit: cover;">
+    <div class="card-body">
+      <h5 class="card-title">{{movie.Title}}</h5>
+      <p class="card-text">Year: {{movie.Year}}</p>
+      <p class="card-text">Type: {{movie.Type[0].toUpperCase()+movie.Type.substr(1)}}</p>
+      <a routerLink="/details/{{movie.imdbID}}" class="btn btn-primary mr-2">Details</a>
+      <button *ngIf="!movie.IsFavorite" (click)="onLikeClick()" style="margin: 10px;" class="btn btn-success">Like</button>
+      <button *ngIf="movie.IsFavorite" (click)="onLikeClick()" style="margin: 10px;" class="btn btn-danger">Dislike</button>
+    </div>
+</div>

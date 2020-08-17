@@ -1,0 +1,11 @@
+<div class="container my-4">
+    <h1>Favirites</h1>
+    <div *ngIf="movies.length != 0 && title != ''">
+        <h6>Total results: {{movies.length}}</h6>
+    </div>
+    <div class="row mt-4" *ngIf="movies != undefined">
+        <div *ngFor="let movie of movies" class="col-md-3">
+            <app-movie-card [movie]="movie"></app-movie-card>
+        </div>
+    </div>
+</div>

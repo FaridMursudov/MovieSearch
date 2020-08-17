@@ -1,0 +1,42 @@
+<div class="container">
+    <h1>Movie Searh</h1>
+    <form (submit)="onSearch()">
+        <div class="form-group">
+            <label for="">Title:</label>
+            <input [(ngModel)]="title" type="text" id="title" name="title" class="form-control"> 
+        </div>
+        <button class="btn btn-primary">Search</button>
+    </form>
+
+    <div class="form-inline my-4">
+        <div class="form-group mr-3">
+            <label for="yearFrom">From: {{yearFrom}}</label>
+            <input min="1888" [max]="yearTo" [(ngModel)]="yearFrom" type="range" class="form-control-range" name="yearFrom" id="yearFrom">
+        </div>
+        <div class="form-group mr-3">
+            <label for="yearTo">To: {{yearTo}}</label>
+            <input [min]="yearFrom" max="2019" [(ngModel)]="yearTo" type="range" class="form-control-range" name="yearTo" id="yearTo">
+        </div>
+        <div class="form-group mr-3">
+            <label for="type">Type: </label>
+            <select [(ngModel)]="type" name="type" id="type" class="form-control">
+                <option value="">Select type...</option>
+                <option value="movie">Movies</option>
+                <option value="series">Series</option>
+                <option value="game">Games</option>
+            </select>
+        </div>
+    </div>
+    <div *ngIf="movies.length != 0 && title != ''">
+        <h6>Total results for {{title}}: {{totalResults}}</h6>
+    </div>
+    <div class="row mt-4" *ngIf="movies != undefined">
+        <div *ngFor="let movie of movies | typeFilter: type | yearFilter: yearFrom:yearTo" class="col-md-3">
+            <app-movie-card [movie]="movie"></app-movie-card>
+        </div>
+        <div class="col-12 my-4" *ngIf="movies.length < totalResults">
+            <button (click)="onLoadMoreClick()" class="btn btn-primary text-center">Load more...</button>
+        </div>
+    </div>
+    <h1 class="text text-danger" *ngIf="movies == undefined">Nothing to show</h1>
+</div>
